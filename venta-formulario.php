@@ -15,17 +15,29 @@ if($_POST){
         if(isset($_GET["id"]) && $_GET["id"] > 0){
               //Actualizo un cliente existente
               $venta->actualizar();
-              header("Location: venta-formulario.php");
         } else {
             //Es nuevo
-            $venta->insertar();
-            header("Location: venta-formulario.php");
+            $producto = new Producto();
+            $producto->idproducto = $venta->fk_idproducto;
+            $producto->obtenerPorId();
+            if($venta->cantidad <= $producto->cantidad){
+                $total = $venta->cantidad * $producto->precio;
+                $venta->total = $total;
+                $venta->insertar();
+                $producto->cantidad = $producto->cantidad - $venta->cantidad;
+                $producto->actualizar();
+            } else {
+                $msg = "No hay stock suficiente";
+            }
         }
     } else if(isset($_POST["btnBorrar"])){
         $venta->eliminar();
         header("Location: ventas.php");
     }
-} 
+}
+
+
+
 if(isset($_GET["id"]) && $_GET["id"] > 0){
     $venta->obtenerPorId();
 }
@@ -68,13 +80,14 @@ include_once("header.php");
             </div>
             <div class="row">
                 <div class="col-12 form-group">
-                    <label for="txtFechaNac" class="d-block">Fecha y hora:</label>
+                    <label for="txtDia" class="d-block">Fecha y hora:</label>
                     <select class="form-control d-inline" name="txtDia" id="txtDia" style="width: 80px">
                         <option selected="" disabled="">DD</option>
                         <?php for($i=1; $i <= 31; $i++): ?>
                             <option><?php echo $i; ?></option>
                         <?php endfor; ?>
                     </select>
+                    
                     <select class="form-control d-inline" name="txtMes" id="txtMes" style="width: 80px">
                         <option selected="" disabled="">MM</option>
                         <?php for($i=1; $i <= 12; $i++): ?>
@@ -135,7 +148,50 @@ include_once("header.php");
 
       </div>
       <!-- End of Main Content -->
+
 <script>
+
+    function fBuscarPrecio(){
+        var idProducto = $("#lstProducto option:selected").val();
+        $.ajax({
+                type: "GET",
+                url: "venta-formulario.php?do=buscarProducto",
+                data: { id:idProducto },
+                async: true,
+                dataType: "json",
+                success: function (respuesta) {
+                    strResultado = Intl.NumberFormat("es-AR", {style: 'currency', currency: 'ARS'}).format(respuesta.precio);
+                    $("#txtPrecioUniCurrency").val(strResultado);
+                    $("#txtPrecioUni").val(respuesta.precio);
+                }
+        });
+    };
+
+    function fCalcularTotal(){
+    var idProducto = $("#lstProducto option:selected").val();
+    var precio = parseFloat($('#txtPrecioUni').val());
+    var cantidad = parseInt($('#txtCantidad').val());
+
+     $.ajax({
+        type: "GET",
+        url: "venta-formulario.php?do=buscarProducto",
+        data: { id:idProducto },
+        async: true,
+        dataType: "json",
+        success: function (respuesta) {
+            let resultado = 0;
+            if(cantidad <= parseInt(respuesta.cantidad)){
+                resultado = precio * cantidad;
+                 $("#msgStock").hide();
+            } else {
+                $("#msgStock").show();
+            }
+            strResultado = Intl.NumberFormat("es-AR", {style: 'currency', currency: 'ARS'}).format(resultado);
+            $("#txtTotal").val(strResultado);
+        }
+    });   
+}
+
 
 
 
