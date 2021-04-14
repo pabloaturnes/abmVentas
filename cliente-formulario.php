@@ -8,6 +8,8 @@ include_once "entidades/localidad.entidad.php";
 include_once "entidades/domicilio.entidad.php";
 
 $pg = "Edición de cliente";
+$msj= "";
+$value="";
 
 $cliente = new Cliente();
 $cliente->cargarFormulario($_REQUEST);
@@ -18,12 +20,16 @@ if($_POST){
     if(isset($_POST["btnGuardar"])){
         if(isset($_GET["id"]) && $_GET["id"] > 0){
               //Actualizo un cliente existente
+              $msj= "El cliente ha sido ingresado correctamente";
+              $value="alert-success";
               $cliente->actualizar();
-              header("Location: cliente-formulario.php");
+
         } else {
             //Es nuevo
+            $msj= "El cliente ha sido actualizado correctamente";
+            $value="alert-primary";
             $cliente->insertar();
-            header("Location: cliente-formulario.php");
+
         }
         if(isset($_POST["txtTipo"])){
             $domicilio = new Domicilio();
@@ -40,7 +46,8 @@ if($_POST){
         $domicilio = new Domicilio();
         $domicilio->eliminarPorCliente($cliente->idcliente);
         $cliente->eliminar();
-        header("Location: clientes.php");
+        $msj= "El cliente ha sido borrado correctamente";
+        $value="alert-danger";
     }
 } 
 
@@ -104,6 +111,16 @@ include_once("header.php");
                     <button type="submit" class="btn btn-success mr-2" id="btnGuardar" name="btnGuardar">Guardar</button>
                     <button type="submit" class="btn btn-danger" id="btnBorrar" name="btnBorrar">Borrar</button>
                 </div>
+                <?php if($msj) {  ?>
+                    <div class="col-6 mb-3">
+                        <div class="alert <?php echo $value; ?> alert-dismissible fade show" role="alert">
+                            <strong> <?php echo $msj; ?></strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
             <div class="row">
                 <div class="col-6 form-group">
