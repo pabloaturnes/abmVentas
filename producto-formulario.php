@@ -20,10 +20,8 @@ if($_POST){
           $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
           $nombreImagen = "$nombreRandom.$extension";
           move_uploaded_file($archivoTmp, "files/$nombreImagen");
-        } else {
-            $nombreImagen = "none";
         }
-
+        
         if(isset($_GET["id"]) && $_GET["id"] > 0){
             $productoAnt = new Producto();
             $productoAnt->idproducto = $_GET["id"];
