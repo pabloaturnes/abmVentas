@@ -6,6 +6,8 @@ include_once "entidades/cliente.php";
 include_once "entidades/producto.php";
 
 $pg = "Edición de venta";
+$msj= "";
+$value="";
 
 $venta = new Venta();
 $venta->cargarFormulario($_REQUEST);
@@ -15,6 +17,8 @@ if($_POST){
         if(isset($_GET["id"]) && $_GET["id"] > 0){
               //Actualizo un cliente existente
               $venta->actualizar();
+              $msj= "La venta ha sido actualizado correctamente";
+              $value="alert-success";
         } else {
             //Es nuevo
             $producto = new Producto();
@@ -26,13 +30,17 @@ if($_POST){
                 $venta->insertar();
                 $producto->cantidad = $producto->cantidad - $venta->cantidad;
                 $producto->actualizar();
+                $msj= "La venta ha sido guardada correctamente";
+                $value="alert-primary";
+                
             } else {
                 $msg = "No hay stock suficiente";
             }
         }
     } else if(isset($_POST["btnBorrar"])){
         $venta->eliminar();
-        header("Location: ventas.php");
+        $msj= "La venta ha sido borrada correctamente";
+        $value="alert-danger";
     }
 }
 
@@ -77,6 +85,16 @@ include_once("header.php");
                     <button type="submit" class="btn btn-success mr-2" id="btnGuardar" name="btnGuardar">Guardar</button>
                     <button type="submit" class="btn btn-danger" id="btnBorrar" name="btnBorrar">Borrar</button>
                 </div>
+                 <?php if($msj) {  ?>
+                    <div class="col-6 mb-3">
+                        <div class="alert <?php echo $value; ?> alert-dismissible fade show" role="alert">
+                            <strong> <?php echo $msj; ?></strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
             <div class="row">
                 <div class="col-12 form-group">
