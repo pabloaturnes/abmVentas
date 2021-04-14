@@ -30,7 +30,7 @@ include_once("header.php");
             </tr>
             <?php foreach ($aVentas as $venta): ?>
               <tr>
-                  <td><?php echo date_format(date_create($venta->fecha), "d/m/Y H:m"); ?></td>
+                  <td><?php echo date_format(date_create($venta->fecha), "d/m/Y "); ?></td>
                   <td><?php echo $venta->cantidad; ?></td>
                   <td><?php echo $venta->nombre_producto; ?></td>
                   <td><?php echo $venta->nombre_cliente; ?></td>

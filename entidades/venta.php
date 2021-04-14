@@ -31,10 +31,12 @@ class Venta {
         $this->idventa = isset($request["id"])? $request["id"] : "";
         $this->fk_idcliente = isset($request["lstCliente"])? $request["lstCliente"] : "";
         $this->fk_idproducto = isset($request["lstProducto"])? $request["lstProducto"]: "";
-        $this->fecha = isset($request["txtFecha"])? $request["txtFecha"] . " " . $request["txtHora"]: "";
         $this->cantidad = isset($request["txtCantidad"])? $request["txtCantidad"] : 0;
         $this->preciounitario = isset($request["txtPrecioUni"])? $request["txtPrecioUni"] : 0.0;
         $this->total = isset($request["txtTotal"])? $request["txtTotal"] : 0.0;
+        if(isset($request["txtAnio"]) && isset($request["txtMes"]) && isset($request["txtDia"])){
+            $this->fecha = $request["txtAnio"] . "-" .  $request["txtMes"] . "-" .  $request["txtDia"];
+        }
     }
 
     public function insertar(){
