@@ -5,6 +5,8 @@ include_once "entidades/producto.php";
 include_once "entidades/tipoproducto.php";
 
 $pg = "Edición de producto";
+$msj= "";
+$value="";
 
 $producto = new Producto();
 $producto->cargarFormulario($_REQUEST);
@@ -39,17 +41,20 @@ if($_POST){
             $producto->imagen = $nombreImagen;
             //Actualizo un cliente existente
             $producto->actualizar();
-            header("Location: producto-formulario.php");
+            $msj= "El producto ha sido actualizado correctamente";
+            $value="alert-success";
+
         } else {
             //Es nuevo
             $producto->imagen = $nombreImagen;
             $producto->insertar();
-            header("Location: producto-formulario.php");
+            $msj= "El producto ha sido ingresado correctamente";
+            $value="alert-primary";
         }
     } else if(isset($_POST["btnBorrar"])){
         $producto->eliminar();
-        header("Location: productos.php");
-        
+        $msj= "El producto ha sido borrado correctamente";
+        $value="alert-danger";
     }
 } 
 if(isset($_GET["id"]) && $_GET["id"] > 0){
@@ -68,12 +73,22 @@ include_once("header.php");
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800">Productos</h1>
            <div class="row">
-                <div class="col-12 mb-3">
+                <div class="col-6 mb-3">
                     <a href="productos.php" class="btn btn-primary mr-2">Listado</a>
                     <a href="producto-formulario.php" class="btn btn-primary mr-2">Nuevo</a>
                     <button type="submit" class="btn btn-success mr-2" id="btnGuardar" name="btnGuardar">Guardar</button>
                     <button type="submit" class="btn btn-danger" id="btnBorrar" name="btnBorrar">Borrar</button>
                 </div>
+                <?php if($msj) {  ?>
+                    <div class="col-6 mb-3">
+                        <div class="alert <?php echo $value; ?> alert-dismissible fade show" role="alert">
+                            <strong> <?php echo $msj; ?></strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
             <div class="row">
                 <div class="col-6 form-group">
@@ -108,7 +123,7 @@ include_once("header.php");
                 </div>
                 <div class="col-6 form-group">
                     <label for="fileImagen">Imagen:</label>
-                    <input type="file" class="form-control-file" name="imagen" id="imagen">
+                    <input type="file" class="form-control-file" name="imagen" id="imagen" >
                     <img src="files/<?php echo $producto->imagen; ?>" class="img-thumbnail">
                 </div>
             </div>
