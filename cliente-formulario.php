@@ -20,13 +20,13 @@ if($_POST){
     if(isset($_POST["btnGuardar"])){
         if(isset($_GET["id"]) && $_GET["id"] > 0){
               //Actualizo un cliente existente
-              $msj= "El cliente ha sido ingresado correctamente";
+              $msj= "El cliente ha sido actualizado correctamente";
               $value="alert-success";
               $cliente->actualizar();
 
         } else {
             //Es nuevo
-            $msj= "El cliente ha sido actualizado correctamente";
+            $msj= "El cliente ha sido ingresado correctamente";
             $value="alert-primary";
             $cliente->insertar();
 
