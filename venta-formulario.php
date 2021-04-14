@@ -82,23 +82,35 @@ include_once("header.php");
                 <div class="col-12 form-group">
                     <label for="txtDia" class="d-block">Fecha y hora:</label>
                     <select class="form-control d-inline" name="txtDia" id="txtDia" style="width: 80px">
-                        <option selected="" disabled="">DD</option>
+                    <option selected="" disabled="">DD</option>
                         <?php for($i=1; $i <= 31; $i++): ?>
+                            <?php if($venta->fecha != "" && $i == date_format(date_create($venta->fecha), "d")): ?>
+                            <option selected><?php echo $i; ?></option>
+                            <?php else: ?>
                             <option><?php echo $i; ?></option>
+                            <?php endif; ?>
                         <?php endfor; ?>
                     </select>
                     
                     <select class="form-control d-inline" name="txtMes" id="txtMes" style="width: 80px">
-                        <option selected="" disabled="">MM</option>
+                    <option selected="" disabled="">MM</option>
                         <?php for($i=1; $i <= 12; $i++): ?>
+                            <?php if($venta->fecha != "" && $i == date_format(date_create($venta->fecha), "m")): ?>
+                            <option selected><?php echo $i; ?></option>
+                            <?php else: ?>
                             <option><?php echo $i; ?></option>
+                            <?php endif; ?>
                         <?php endfor; ?>
                     </select>
                     <select class="form-control d-inline" name="txtAnio" id="txtAnio" style="width: 100px">
-                        <option selected="" disabled="">YYYY</option>
+                    <option selected="" disabled="">YYYY</option>
                         <?php for($i=1900; $i <= date("Y"); $i++): ?>
+                         <?php if($venta->fecha != "" && $i == date_format(date_create($venta->fecha), "Y")): ?>
+                            <option selected><?php echo $i; ?></option>
+                            <?php else: ?>
                             <option><?php echo $i; ?></option>
-                        <?php endfor; ?>
+                            <?php endif; ?>
+                        <?php endfor; ?> ?>
                     </select>
                     <input type="time" required="" class="form-control d-inline" style="width: 120px" name="txtHora" id="txtHora" value="<?php echo date_format(date_create($venta->fecha), "H:i"); ?>">
                 </div>
