@@ -79,7 +79,7 @@ include_once("header.php");
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800">Venta</h1>
             <div class="row">
-                <div class="col-12 mb-3">
+                <div class="col-6 mb-3">
                     <a href="ventas.php" class="btn btn-primary mr-2">Listado</a>
                     <a href="venta-formulario.php" class="btn btn-primary mr-2">Nuevo</a>
                     <button type="submit" class="btn btn-success mr-2" id="btnGuardar" name="btnGuardar">Guardar</button>
