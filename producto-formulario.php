@@ -12,6 +12,7 @@ $producto = new Producto();
 $producto->cargarFormulario($_REQUEST);
 
 if($_POST){
+
     if(isset($_POST["btnGuardar"])){
         if($_FILES["imagen"]["error"] === UPLOAD_ERR_OK){
           $nombreRandom = date("Ymdhmsi");
@@ -20,6 +21,8 @@ if($_POST){
           $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
           $nombreImagen = "$nombreRandom.$extension";
           move_uploaded_file($archivoTmp, "files/$nombreImagen");
+        }else{
+            $nombreImagen = "";
         }
         
         if(isset($_GET["id"]) && $_GET["id"] > 0){
@@ -52,14 +55,22 @@ if($_POST){
             $msj= "El producto ha sido ingresado correctamente";
             $value="alert-primary";
         }
-    } else if(isset($_POST["btnBorrar"])){
-        $producto->eliminar();
-        $msj= "El producto ha sido borrado correctamente";
-        $value="alert-danger";
-    }
+    } 
+
 } 
+
 if(isset($_GET["id"]) && $_GET["id"] > 0){
     $producto->obtenerPorId();
+}
+
+if(isset($_POST["btnBorrar"]) && isset($_GET["id"]) ){
+    if($producto->imagen != ""){
+        $imagen = $producto->imagen;
+        unlink("files/$imagen");
+    }
+    $producto->eliminar();
+    $msj= "El producto ha sido borrado correctamente";
+    $value="alert-danger";
 }
 
 $tipoProducto = new Tipoproducto();
