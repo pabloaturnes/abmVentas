@@ -1,3 +1,26 @@
+
+
+<?php 
+include_once "config.php";
+include_once "entidades/usuario.php";
+
+if(isset($_POST["crearcuenta"])){
+
+  $usuario = new Usuario();
+  $usuario->usuario = $_POST["usuario"];
+  $usuario->clave = $usuario->encriptarClave($_POST["contrasenia"]);
+  $usuario->nombre = $_POST["nombre"];
+  $usuario->apellido = $_POST["apellido"];
+  $usuario->correo = $_POST["email"];
+  $usuario->insertar();
+
+}
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -34,30 +57,32 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Crea tu cuenta!</h1>
               </div>
-              <form class="user">
+              <form class="user" method="POST">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" name="nombre" id="nombre" placeholder="Nombre">
+                    <input type="text" class="form-control form-control-user" name="nombre" id="nombre" placeholder="Nombre" require>
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" name="apellido" id="apellido" placeholder="Apellido">
+                    <input type="text" class="form-control form-control-user" name="apellido" id="apellido" placeholder="Apellido" require>
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" name="email" id="email" placeholder="direccion@gmail.com">
+                  <input type="text" class="form-control form-control-user" name="usuario" id="usuario" placeholder="Usuario" require>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control form-control-user" name="email" id="email" placeholder="direccion@gmail.com" require>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" name="contrasenia" id="contrasenia" placeholder="Contraseña">
+                    <input type="password" class="form-control form-control-user" name="contrasenia" id="contrasenia" placeholder="Contraseña" require>
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" name="repetircontrasenia" id="repetircontrasenia" placeholder="Repetir contraseña">
+                    <input type="password" class="form-control form-control-user" name="repetircontrasenia" id="repetircontrasenia" placeholder="Repetir contraseña" require>
                   </div>
                 </div>
-                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                <button class="btn btn-primary btn-user btn-block" type="submit" name="crearcuenta" >  
                   Registrar Cuenta
-                </a>
-                <hr>
+                </button>
               </form>
               <hr>
               <div class="text-center">

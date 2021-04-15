@@ -72,10 +72,10 @@ if($_POST){
 					</div>
 				  <?php endif; ?>
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user" id="txtUsuario" name="txtUsuario" aria-describedby="emailHelp" placeholder="Usuario" value="pabloturnes">
+                      <input type="text" class="form-control form-control-user" id="txtUsuario" name="txtUsuario" aria-describedby="emailHelp" placeholder="Usuario" value="">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="txtClave" name="txtClave" placeholder="Clave" value="turnes123">
+                      <input type="password" class="form-control form-control-user" id="txtClave" name="txtClave" placeholder="Clave" value="">
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
