@@ -136,7 +136,9 @@ include_once("header.php");
                 <div class="col-6 form-group">
                     <label for="fileImagen">Imagen:</label>
                     <input type="file" class="form-control-file" name="imagen" id="imagen" >
+                    <?php if($producto->imagen !=""){  ?>
                     <img src="files/<?php echo $producto->imagen; ?>" class="img-thumbnail">
+                    <?php } ?>
                 </div>
             </div>
 
