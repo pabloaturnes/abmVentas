@@ -27,11 +27,12 @@ if($_POST){
             $productoAnt->idproducto = $_GET["id"];
             $productoAnt->obtenerPorId();
             $imagenAnterior = $productoAnt->imagen;
+            
 
             //Si es una actualizacion y se sube una imagen, elimina la anterior
             if($_FILES["imagen"]["error"] === UPLOAD_ERR_OK){
-                if(!$imagenAnterior != ""){
-                        unlink($imagenAnterior);
+                if($imagenAnterior != ""){
+                        unlink("files/$imagenAnterior");
                 }
             } else {
                 //Si no viene ninguna imagen, setea como imagen la que habia previamente
