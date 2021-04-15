@@ -92,7 +92,7 @@ if($_POST){
                     <a class="small" href="forgot-password.html">Olvidaste la clave?</a>
                   </div>
                   <div class="text-center">
-                    <a class="small" href="register.html">Crear una cuenta!</a>
+                    <a class="small" href="register.php">Crear una cuenta!</a>
                   </div>
                 </div>
               </div>
