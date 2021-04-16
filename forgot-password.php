@@ -42,9 +42,9 @@
                   </div>
                   <form class="user">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" name="email" id="email" aria-describedby="emailHelp" placeholder="correo@gmail.com">
+                      <input type="email" class="form-control form-control-user" name="email" id="email" aria-describedby="emailHelp" placeholder="correo@mail.com">
                     </div>
-                    <a href="login.html" class="btn btn-primary btn-user btn-block">
+                    <a href="login.php" class="btn btn-primary btn-user btn-block">
                       Restablecer contraseña
                     </a>
                   </form>
