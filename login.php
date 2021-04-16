@@ -3,12 +3,12 @@ include_once "config.php";
 include_once "entidades/usuario.php";
 
 if($_POST){
-	//Comprobamos que el usuario sea admin y la clave sea admin123
+	//asignamos el usuario y la contraseña ingresados
 	$usuario = trim($_POST["txtUsuario"]); //trim elimina espacios de los laterales
 	$clave = trim($_POST["txtClave"]);
 
   $entidadUsuario = new Usuario();
-  $entidadUsuario->obtenerPorUsuario($usuario); //a desarrollar
+  $entidadUsuario->obtenerPorUsuario($usuario); 
   
 
 	//Si es correcto creamos una variable de session llamada nombre y tenga el valor "Ana Valle"

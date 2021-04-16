@@ -7,16 +7,20 @@ include_once "entidades/usuario.php";
 $msj= "";
 $value="";
 
+
+
 if(isset($_POST["crearcuenta"])){
 
   if($_POST["contrasenia"]== $_POST["repetircontrasenia"]){
     $usuario = new Usuario();
-    $usuario->usuario = $_POST["usuario"];
-    $usuario->clave = $usuario->encriptarClave($_POST["contrasenia"]);
-    $usuario->nombre = $_POST["nombre"];
-    $usuario->apellido = $_POST["apellido"];
-    $usuario->correo = $_POST["email"];
+    $usuario->usuario = trim($_POST["usuario"]);      // trim elimina los espacios antes y despues de un texto
+    $usuario->clave = trim($usuario->encriptarClave($_POST["contrasenia"]));
+    $usuario->nombre = trim($_POST["nombre"]);
+    $usuario->apellido = trim($_POST["apellido"]);
+    $usuario->correo = trim($_POST["email"]);
     $usuario->insertar();
+    $msj="La cuenta se ha creado exitosamente!";
+    $value="alert-success";
   }else{
     $msj="La contraseña ingresada no coincide con la contraseña repetida";
     $value="alert-danger";
