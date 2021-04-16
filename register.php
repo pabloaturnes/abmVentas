@@ -4,15 +4,24 @@
 include_once "config.php";
 include_once "entidades/usuario.php";
 
+$msj= "";
+$value="";
+
 if(isset($_POST["crearcuenta"])){
 
-  $usuario = new Usuario();
-  $usuario->usuario = $_POST["usuario"];
-  $usuario->clave = $usuario->encriptarClave($_POST["contrasenia"]);
-  $usuario->nombre = $_POST["nombre"];
-  $usuario->apellido = $_POST["apellido"];
-  $usuario->correo = $_POST["email"];
-  $usuario->insertar();
+  if($_POST["contrasenia"]== $_POST["repetircontrasenia"]){
+    $usuario = new Usuario();
+    $usuario->usuario = $_POST["usuario"];
+    $usuario->clave = $usuario->encriptarClave($_POST["contrasenia"]);
+    $usuario->nombre = $_POST["nombre"];
+    $usuario->apellido = $_POST["apellido"];
+    $usuario->correo = $_POST["email"];
+    $usuario->insertar();
+  }else{
+    $msj="La contraseña ingresada no coincide con la contraseña repetida";
+    $value="alert-danger";
+  }
+  
 
 }
 
@@ -40,6 +49,7 @@ if(isset($_POST["crearcuenta"])){
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  
 
 </head>
 
@@ -60,24 +70,24 @@ if(isset($_POST["crearcuenta"])){
               <form class="user" method="POST">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" name="nombre" id="nombre" placeholder="Nombre" require>
+                    <input type="text" class="form-control form-control-user" name="nombre" id="nombre" placeholder="Nombre" required>
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" name="apellido" id="apellido" placeholder="Apellido" require>
+                    <input type="text" class="form-control form-control-user" name="apellido" id="apellido" placeholder="Apellido" required>
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-user" name="usuario" id="usuario" placeholder="Usuario" require>
+                  <input type="text" class="form-control form-control-user" name="usuario" id="usuario" placeholder="Usuario" required>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" name="email" id="email" placeholder="direccion@gmail.com" require>
+                  <input type="email" class="form-control form-control-user" name="email" id="email" placeholder="direccion@gmail.com" required>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" name="contrasenia" id="contrasenia" placeholder="Contraseña" require>
+                    <input type="password" class="form-control form-control-user" name="contrasenia" id="contrasenia" placeholder="Contraseña" required>
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" name="repetircontrasenia" id="repetircontrasenia" placeholder="Repetir contraseña" require>
+                    <input type="password" class="form-control form-control-user" name="repetircontrasenia" id="repetircontrasenia" placeholder="Repetir contraseña" required>
                   </div>
                 </div>
                 <button class="btn btn-primary btn-user btn-block" type="submit" name="crearcuenta" >  
@@ -86,11 +96,16 @@ if(isset($_POST["crearcuenta"])){
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="forgot-password.html">Olvide mi contraseña</a>
+                <a class="small" href="forgot-password.php">Olvide mi contraseña</a>
               </div>
               <div class="text-center">
                 <a class="small" href="login.php">¿Ya tenés una cuenta? Logueate! </a>
               </div>
+              <?php if($msj) {  ?>
+                <div class="alert alert-danger" role="alert">
+                  <?php echo $msj; ?>
+                </div>
+              <?php } ?>
             </div>
           </div>
         </div>
