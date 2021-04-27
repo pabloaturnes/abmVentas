@@ -11,23 +11,43 @@ $value="";
 
 if(isset($_POST["crearcuenta"])){
 
-  if($_POST["contrasenia"]== $_POST["repetircontrasenia"]){
-    $usuario = new Usuario();
-    $usuario->usuario = trim($_POST["usuario"]);      // trim elimina los espacios antes y despues de un texto
-    $usuario->clave = trim($usuario->encriptarClave($_POST["contrasenia"]));
-    $usuario->nombre = trim($_POST["nombre"]);
-    $usuario->apellido = trim($_POST["apellido"]);
-    $usuario->correo = trim($_POST["email"]);
-    $usuario->insertar();
-    $msj="La cuenta se ha creado exitosamente!";
+  $expresion = "/[^a-zA-Z0-9]/";  // expresion regular que significa "que no sean letras y numeros"
+  if( preg_match($expresion, $_POST["usuario"] ) == 1 ){   // consulta si el usuario ingresado tiene caracteres que no sean letras y numeros
+    $msj="El usuario solo puede contener letras y numeros";
     $value="alert-success";
-  }else{
-    $msj="La contraseña ingresada no coincide con la contraseña repetida";
-    $value="alert-danger";
+  } else{
+    if(strlen($_POST["usuario"]) < 5 || strlen($_POST["usuario"]) > 15 ){ // pregunta si usuario es menor a 5 o mayor a 15 caracteres
+      $msj="El usuario debe contener entre 5 y 15 caracteres";
+      $value="alert-success";
+    } else {
+      if($_POST["contrasenia"] != $_POST["repetircontrasenia"]){ // pregunta si la contraseña ingresada es distinta a la repetida
+        $msj="La contraseña ingresada no coincide con la contraseña repetida";
+        $value="alert-danger";
+      } else{
+        // cuando quieras preguntar si ya existe ese usuario vas a tener que poner aca la validacion esa. 
+        $usuario = new Usuario();    // si pasaron todas las validaciones entonces inserta el usuario
+        $usuario->usuario = trim($_POST["usuario"]);      // trim elimina los espacios antes y despues de un texto
+        $usuario->clave = trim($usuario->encriptarClave($_POST["contrasenia"]));
+        $usuario->nombre = trim($_POST["nombre"]);
+        $usuario->apellido = trim($_POST["apellido"]);
+        $usuario->correo = trim($_POST["email"]);
+        $usuario->insertar();
+        $msj="La cuenta se ha creado exitosamente!";
+        $value="alert-success";
+      }
+                   
+    }
+    
   }
+ 
+    
+      
+    
+      
+    
   
 
-}
+} 
 
 
 
@@ -81,7 +101,7 @@ if(isset($_POST["crearcuenta"])){
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-user" name="usuario" id="usuario" placeholder="Usuario" required>
+                  <input type="text" class="form-control form-control-user" name="usuario" id="usuario" placeholder="Usuario" value="" minlength="5" maxlength="15" required >
                 </div>
                 <div class="form-group">
                   <input type="email" class="form-control form-control-user" name="email" id="email" placeholder="direccion@gmail.com" required>
