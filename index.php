@@ -136,6 +136,6 @@ include_once("header.php");
         </div>
         <!-- /.container-fluid -->
 
-      </div>
+      
       <!-- End of Main Content -->
 <?php include_once("footer.php"); ?>
