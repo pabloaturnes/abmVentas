@@ -10,7 +10,7 @@ $aClientes = $entidadCliente->obtenerTodos();
 
 include_once("header.php"); 
 ?>
-
+<form action="" method="POST" enctype="multipart/form-data">
         <!-- Begin Page Content -->
         <div class="container-fluid">
           <!-- Page Heading -->
@@ -44,7 +44,7 @@ include_once("header.php");
           </table>
         </div>
         <!-- /.container-fluid -->
-
+        </form>
       </div>
       <!-- End of Main Content -->
 <?php include_once("footer.php"); ?>

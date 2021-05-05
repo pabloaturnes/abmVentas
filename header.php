@@ -41,7 +41,7 @@ if($_POST){
 </head>
 
 <body id="page-top">
-    <form action="" method="POST" enctype="multipart/form-data">
+    
 
     <!-- Page Wrapper -->
     <div id="wrapper">
