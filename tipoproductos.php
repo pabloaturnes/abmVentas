@@ -1,5 +1,4 @@
 <?php
-
 include_once "config.php";
 include_once "entidades/tipoproducto.php";
 $pg = "Listado de tipo de productos";
@@ -20,7 +19,7 @@ include_once("header.php");
                     <a href="tipoproducto-formulario.php" class="btn btn-primary mr-2">Nuevo</a>
                 </div>
             </div>
-          <table class="table table-hover border">
+            <table class="table table-hover border table-condensed table-hover table-responsive-md">
             <tr>
                 <th>Nombre</th>
                 <th>Acciones</th>
