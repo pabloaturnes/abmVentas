@@ -20,7 +20,7 @@ include_once("header.php");
                   <a href="venta-formulario.php" class="btn btn-primary mr-2">Nuevo</a>
               </div>
           </div>
-          <table class="table table-hover border">
+          <table class="table table-hover border table-condensed table-hover table-responsive-md">
             <tr>
                 <th style="width: 170px;">Fecha</th>
                 <th style="width: 130px;">Cantidad</th>
